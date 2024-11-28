@@ -11,8 +11,9 @@ class GoogleAnalyticsController extends Controller
 {
     public function index()
     {
-        $startDate = Carbon::createFromFormat('Y-m-d', '2022-01-01'); // Ngày bắt đầu
-        $endDate = Carbon::now(); // Ngày hiện tại
+        try {
+        $startDate = Carbon::createFromFormat('Y-m-d', '2022-01-01');
+        $endDate = Carbon::now();
 
         $analyticsData = Analytics::fetchTotalVisitorsAndPageViews(
             Period::create($startDate, $endDate)
@@ -24,5 +25,8 @@ class GoogleAnalyticsController extends Controller
             'total_active_users' => $totalActiveUsers,
             'total_screen_page_views' => $totalScreenPageViews,
         ]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }
 }

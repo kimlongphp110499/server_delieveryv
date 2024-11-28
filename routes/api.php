@@ -60,6 +60,7 @@ use App\Http\Controllers\API\DocumentRequestController;
 use App\Http\Controllers\API\FavouriteVendorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\API\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -281,3 +282,6 @@ Route::group(['middleware' => ['auth:sanctum', "user.active.check"]], function (
         Route::get('/driver/earnings/report', [DriverReportController::class, 'earnings']);
     });
 });
+
+//for bo cong thuong
+Route::post('/baocao/gov', [ReportController::class, 'index']);
